@@ -22,4 +22,4 @@ config/**/*.map
 public/img/*
 
 /public/web/_next/
-/config/config.default.ts
+config/config.default.ts
