@@ -15,6 +15,7 @@ export const categoryLookup = ['area', 'year', 'kind', 'tag'].map((item) => {
                     $project: {
                         type: 1,
                         name: 1,
+                        id: 1
                     },
                 },
             ],
@@ -67,7 +68,6 @@ export const authorLookup = [
         $addFields: {
             author: {
                 id: '$authors._id',
-                _id: '$authors._id',
                 level: '$authors.level',
                 score: '$authors.score',
                 avatar: '$authors.avatar',

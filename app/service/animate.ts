@@ -16,7 +16,8 @@ interface Query {
     sortOrder?: number;
     title?: string;
     status?: string;
-    update?: string;
+    isUpdate?: string;
+    updateDay?: number;
     area?: string;
     kind?: string;
     tag?: string;
@@ -32,7 +33,8 @@ class AnimateService extends Service {
         sortOrder = -1,
         title,
         status,
-        update,
+        isUpdate,
+        updateDay,
         area,
         kind,
         tag,
@@ -46,7 +48,8 @@ class AnimateService extends Service {
         const query: any = {};
         title && (query.title = { $regex: title, $options: '$i' });
         status && (query.status = status);
-        update && (query.isUpdate = update === 'true');
+        isUpdate && (query.isUpdate = isUpdate === 'true');
+        updateDay && (query.updateDay = updateDay);
         area && (query.area = { $in: [mongoose.Types.ObjectId(area)] });
         year && (query.year = { $in: [mongoose.Types.ObjectId(year)] });
         kind && (query.kind = { $in: [mongoose.Types.ObjectId(kind)] });

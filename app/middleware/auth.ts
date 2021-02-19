@@ -8,6 +8,7 @@ export default (level) => {
             name: null,
             level: 0,
         };
+        ctx.state.user = level0;
 
         if (token) {
             try {
@@ -17,14 +18,12 @@ export default (level) => {
                 if (userInfo) {
                     userInfo.id = userInfo._id.toString();
                     ctx.state.user = userInfo;
-                } else {
-                    ctx.state.user = level0;
                 }
             } catch (error) {
-                return ctx.helper.status(401);
+                if(level > 0){
+                    return ctx.helper.status(401);
+                }
             }
-        } else {
-            ctx.state.user = level0;
         }
 
         if (ctx.state.user.level >= level) {

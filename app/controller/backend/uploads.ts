@@ -7,7 +7,7 @@ class UploadsController extends Controller {
         const { type } = ctx.request.body;
 
         ctx.helper.validate('string', { string: type });
-
+        
         const result = await service.upload.uploadImg(files, type).catch(() => 25000);
         ctx.helper.send(result);
     }

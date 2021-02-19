@@ -1,4 +1,5 @@
 import { Controller } from 'egg';
+import * as request from 'request-promise';
 
 class CommonController extends Controller {
     async upload() {
@@ -78,6 +79,18 @@ class CommonController extends Controller {
         service.count.init(result, 'rateCount');
         service.count.init(result, 'rateStar');
 
+        ctx.helper.send(result);
+    }
+
+    async message(){
+        const { ctx } = this;
+        const url = ctx?.app?.config?.updateLogUrl;
+        const options = {
+            method: 'get',
+            uri: url,
+            json: true,
+        };
+        const result = await request(options).catch(()=>33000)
         ctx.helper.send(result);
     }
 

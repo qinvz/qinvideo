@@ -3,11 +3,11 @@ import { Controller } from 'egg';
 class EposideController extends Controller {
     async query() {
         const { ctx, service } = this;
-        const { target } = ctx.query;
+        const { query } = ctx;
 
-        ctx.helper.validate('id', { id: target });
+        ctx.helper.validate('query', query);
 
-        const result = await service.eposide.query({ target }).catch(() => 18000);
+        const result = await service.eposide.query(query).catch(() => 18000);
         ctx.helper.send(result);
     }
 

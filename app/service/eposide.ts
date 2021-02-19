@@ -3,11 +3,41 @@ import * as path from 'path';
 import * as fs from 'fs';
 import * as request from 'request-promise';
 
-class EposideService extends Service {
-    async query({ target }) {
-        const query = { target };
+interface Query {
+    page: number;
+    size: number;
+    sortBy?: string;
+    sortOrder?: number;
+    title?: string;
+    target?:string;
+}
 
-        const result = await this.ctx.model.Eposide.find(query).sort({ sort: 1, _id: -1 });
+class EposideService extends Service {
+    async query({
+        page,
+        size,
+        sortBy = 'updatedAt',
+        sortOrder = 1,
+        title,
+        target,
+    }:Query) {
+        const mongoose = this.app.mongoose;
+        const skip: number = (page - 1) * size;
+        const limit: number = size;
+
+        const query: any = {};
+        title && (query.title = { $regex: title, $options: '$i' });
+        target && (query.target = mongoose.Types.ObjectId(target));
+
+        const result = await this.ctx.model.Eposide.find(query)
+            .sort({ [sortBy]: sortOrder, _id: -1 })
+            .skip(skip)
+            .limit(limit)
+            .populate({
+                path: 'target',
+                select: 'title slug',
+            })
+
         const total = await this.ctx.model.Eposide.find(query).countDocuments();
 
         return {

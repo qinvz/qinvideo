@@ -49,9 +49,9 @@ export default (appInfo: EggAppInfo) => {
     },
 
     mongoose: {
-      client: {
-        // url: 'mongodb://demo.qinvideo.org:27017/qinvideo',
-        url: "mongodb://localhost:27017/qinvideo",
+      client: { 
+        url: 'mongodb://qinvideo:CPLwtRQsl#gtl!pv$SY5PDBxYREOFmEn@cloud.qinmei.org:27017/qinvideo',
+        // url: "mongodb://localhost:27017/qinvideo",
         options: {},
       },
     },
@@ -62,6 +62,7 @@ export default (appInfo: EggAppInfo) => {
     expired: 600, // redis缓存有效期, 是个随机数, 如果是3600, 那么会在3600~7200之间, 即一到两倍之间
     expiredCount: 100, // 接口缓存写入数据库的数量
     caculateCount: 100, // 评论播放等统计接口的计算缓存量
+    updateLogUrl:'https://assets.qinmei.org/files/qinvideo.json' //获取系统更新信息的URL
   };
 
   return {

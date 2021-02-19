@@ -11,6 +11,16 @@ class CategoryController extends Controller {
         ctx.helper.send(result);
     }
 
+    async queryByType() {
+        const { ctx, service } = this;
+        const type = ctx.params.type;
+
+        ctx.helper.validate('string', { string: type });
+
+        const result = await service.category.queryByType(type).catch(() => 16000);
+        ctx.helper.send(result);
+    }
+
     async info() {
         const { ctx, service } = this;
         const id = ctx.params.id;
@@ -74,6 +84,7 @@ class CategoryController extends Controller {
         const result = await service.category.destroy(ids, type).catch(() => 16004);
         ctx.helper.send(result);
     }
+
 }
 
 export default CategoryController;

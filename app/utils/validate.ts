@@ -40,8 +40,12 @@ const ruleobj = {
             type: 'string',
             required: false,
         },
-        update: {
+        isUpdate: {
             type: 'string',
+            required: false,
+        },
+        updateDay: {
+            type: 'number',
             required: false,
         },
         kind: {
